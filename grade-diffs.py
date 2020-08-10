@@ -44,6 +44,9 @@ testSchema ={
      "name": {
       "type": "string"
     },
+     "output": {
+      "type": "string"
+    },
     "visibility": {
       "type": "string",
       "enum": [
@@ -197,10 +200,12 @@ def outputDir(args,isReference):
 
 def makeGSTest(ta,stdout_or_stderr):
   result = {}
+  if "output" in ta["test"]:
+    result["output"]=ta["test"]["output"]
   if "visibility" in ta["test"]:
     result["visibility"]=ta["test"]["visibility"]
   if "name" in ta["test"]:
-    result["name"]=ta["test"]["name"] + " (" + stdout_or_stderr + ")"
+    result["name"]=ta["test"]["name"]
   else:
     result["name"]="Checking " + stdout_or_stderr + " from " + ta["shell_command"].strip()
   return result
