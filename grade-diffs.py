@@ -285,7 +285,7 @@ def performDiff(args,ts,gsTest,gsTests,referenceFilename,studentFilename):
       gsTest["score"]=gsTest["max_score"]
     else:
       gsTest["score"]=0
-      gsTest["output"]="\n".join(diffs)
+      # gsTest["output"]="\n".join(diffs)
     gsTests.append(gsTest)  
             
          
