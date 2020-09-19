@@ -300,7 +300,7 @@ def performDiff(args,ts,gsTest,gsTests,referenceFilename,studentFilename):
       gsTest["score"]=gsTest["max_score"]
       gsTest["output"]=""
     elif (len(compileErrorResults)!=0):
-      gsTest["score"]=gsTest["max_score"]
+      gsTest["score"]=0
       gsTest["output"]=compileErrorResults
     else:
       gsTest["score"]=0
