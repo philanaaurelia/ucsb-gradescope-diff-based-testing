@@ -122,7 +122,20 @@ def loadResultsJsonIfExists(inputfile):
     results = json.load(open(inputfile))
   except:
     results = default_results
-  return results    
+  return results
+
+def loadErrorTxtIfExists(errorfile):
+  default_results = ""
+
+  if errorfile == "":
+    return default_results
+
+  try:
+    with open(errorfile,'r') as file:
+      results = file.read()
+  except:
+    results = default_results
+  return results
 
 def haltWithError(message):
     print (message)
@@ -280,10 +293,15 @@ def performDiff(args,ts,gsTest,gsTests,referenceFilename,studentFilename):
     lines_from_f2 = list(map(lambda x:x.strip(), f2.readlines()))
     
     diffs = list(difflib.unified_diff(lines_from_f1,lines_from_f2,
-                                      fromfile="expected",tofile="actual"))            
+                                      fromfile="expected",tofile="actual"))
+    compileErrorResults = loadErrorTxtIfExists("/autograder/submission/stderror.txt")
+    
     if (len(diffs)==0):
       gsTest["score"]=gsTest["max_score"]
       gsTest["output"]=""
+    elif (len(compileErrorResults)!=0):
+      gsTest["score"]=gsTest["max_score"]
+      gsTest["output"]=compileErrorResults
     else:
       gsTest["score"]=0
       # gsTest["output"]="\n".join(diffs)
