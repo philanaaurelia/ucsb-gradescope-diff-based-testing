@@ -294,7 +294,7 @@ def performDiff(args,ts,gsTest,gsTests,referenceFilename,studentFilename):
     
     diffs = list(difflib.unified_diff(lines_from_f1,lines_from_f2,
                                       fromfile="expected",tofile="actual"))
-    compileErrorResults = loadErrorTxtIfExists("/autograder/submission/stderror.txt")
+    compileErrorResults = loadErrorTxtIfExists("stderr.txt")
     
     if (len(diffs)==0):
       gsTest["score"]=gsTest["max_score"]
